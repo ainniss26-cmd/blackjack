@@ -12,13 +12,11 @@
   :root {
     --felt: #1a5c35;
     --felt-dark: #0f3d22;
-    --felt-mid: #1e6b3d;
     --gold: #d4a843;
     --gold-light: #f0c96a;
     --white: #f5f0e8;
-    --red: #c0392b;
-    --green-btn: #27ae60;
     --red-btn: #c0392b;
+    --green-btn: #27ae60;
     --border: rgba(212,168,67,0.3);
     --radius: 12px;
     --radius-sm: 8px;
@@ -30,29 +28,21 @@
     font-family: 'DM Sans', sans-serif;
     background: var(--felt-dark);
     color: var(--text-main);
-    min-height: 100vh;
-    min-height: 100dvh;
-    display: flex;
-    justify-content: center;
+    min-height: 100vh; min-height: 100dvh;
+    display: flex; justify-content: center;
   }
   .app {
-    width: 100%;
-    max-width: 480px;
-    min-height: 100vh;
-    min-height: 100dvh;
+    width: 100%; max-width: 480px;
+    min-height: 100vh; min-height: 100dvh;
     background: var(--felt);
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow-x: hidden;
+    display: flex; flex-direction: column;
+    position: relative; overflow-x: hidden;
   }
   .app::before {
     content: '';
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     background-image: repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(0,0,0,0.025) 2px,rgba(0,0,0,0.025) 4px);
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
   .content { position: relative; z-index: 1; display: flex; flex-direction: column; flex: 1; padding: 0 14px 28px; }
 
@@ -64,19 +54,17 @@
     border-bottom: 1px solid var(--border);
     margin-bottom: 14px;
   }
-  .header-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 26px; letter-spacing: 3px;
-    color: var(--gold);
-  }
+  .header-left { display: flex; flex-direction: column; gap: 2px; }
+  .header-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 3px; color: var(--gold); line-height: 1; }
+  .cache-indicator { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.3px; }
+  .cache-indicator.warm { color: #27ae60; }
   .header-btns { display: flex; gap: 8px; }
   .icon-btn {
     width: 40px; height: 40px;
     border-radius: var(--radius-sm);
     border: 1px solid var(--border);
     background: var(--felt-dark);
-    color: var(--white);
-    font-size: 17px;
+    color: var(--white); font-size: 17px;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer;
     transition: background 0.15s, transform 0.1s;
@@ -96,12 +84,9 @@
   }
   .ev-line {
     font-family: 'DM Mono', monospace;
-    font-size: 10.5px;
-    color: var(--text-muted);
-    margin-bottom: 6px;
-    min-height: 15px;
+    font-size: 10.5px; color: var(--text-muted);
+    margin-bottom: 6px; min-height: 15px;
     letter-spacing: 0.2px;
-    word-break: break-all;
   }
   .best-label {
     font-family: 'Bebas Neue', sans-serif;
@@ -110,14 +95,11 @@
     min-height: 34px; line-height: 1;
   }
   .best-label.computing { font-size: 18px; color: var(--text-muted); padding-top: 4px; }
-  .best-label.hit   { color: #3498db; }
-  .best-label.stand { color: #e74c3c; }
+  .best-label.hit    { color: #3498db; }
+  .best-label.stand  { color: #e74c3c; }
   .best-label.double { color: #f39c12; }
-  .best-label.split { color: #a569bd; }
-  .basic-label {
-    font-size: 13px; color: var(--text-muted);
-    margin-top: 5px; min-height: 17px;
-  }
+  .best-label.split  { color: #a569bd; }
+  .basic-label { font-size: 13px; color: var(--text-muted); margin-top: 5px; min-height: 17px; }
   .disagree { color: #f39c12; font-weight: 600; }
 
   /* Inputs */
@@ -131,10 +113,8 @@
     border-radius: var(--radius-sm);
     color: var(--white);
     font-family: 'DM Mono', monospace;
-    font-size: 14px;
-    padding: 9px 10px;
-    outline: none;
-    width: 100%;
+    font-size: 14px; padding: 9px 10px;
+    outline: none; width: 100%;
     -webkit-appearance: none; appearance: none;
     transition: border-color 0.15s;
   }
@@ -143,23 +123,19 @@
   input[type="text"].error { border-color: var(--red-btn); }
   select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23d4a843' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 8px center;
-    padding-right: 24px;
-    cursor: pointer;
+    background-repeat: no-repeat; background-position: right 8px center;
+    padding-right: 24px; cursor: pointer;
   }
 
-  /* Big button */
+  /* Calc button */
   .calc-btn {
     width: 100%; padding: 15px;
-    background: var(--gold);
-    color: var(--felt-dark);
+    background: var(--gold); color: var(--felt-dark);
     border: none; border-radius: var(--radius);
     font-family: 'Bebas Neue', sans-serif;
     font-size: 22px; letter-spacing: 2px;
-    cursor: pointer;
+    cursor: pointer; margin-bottom: 12px;
     transition: background 0.15s, transform 0.1s;
-    margin-bottom: 12px;
     -webkit-user-select: none; user-select: none;
   }
   .calc-btn:active { transform: scale(0.98); background: var(--gold-light); }
@@ -174,48 +150,30 @@
     display: none;
   }
   .deck-editor.open { display: block; }
-  .deck-stats {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px; color: var(--gold);
-    margin-bottom: 10px; letter-spacing: 0.3px;
-  }
+  .deck-stats { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); margin-bottom: 10px; letter-spacing: 0.3px; }
   .deck-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
   .card-row {
     display: flex; align-items: center; gap: 5px;
     background: rgba(0,0,0,0.18);
-    border-radius: var(--radius-sm);
-    padding: 5px 7px;
+    border-radius: var(--radius-sm); padding: 5px 7px;
   }
-  .card-lbl {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 19px; color: var(--gold);
-    width: 18px; text-align: center; line-height: 1;
-  }
-  .card-cnt {
-    font-family: 'DM Mono', monospace;
-    font-size: 13px; font-weight: 500;
-    color: var(--white); flex: 1; text-align: center;
-  }
+  .card-lbl { font-family: 'Bebas Neue', sans-serif; font-size: 19px; color: var(--gold); width: 18px; text-align: center; line-height: 1; }
+  .card-cnt { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--white); flex: 1; text-align: center; }
   .cnt-btn {
     width: 26px; height: 26px;
     border-radius: 6px; border: 1px solid;
     font-size: 16px; font-weight: 600;
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer; -webkit-user-select: none; user-select: none;
+    cursor: pointer; line-height: 1;
+    -webkit-user-select: none; user-select: none;
     transition: opacity 0.1s, transform 0.1s;
-    line-height: 1;
   }
   .cnt-btn:active { transform: scale(0.88); opacity: 0.7; }
   .cnt-btn.plus  { background: rgba(39,174,96,0.15); border-color: #27ae60; color: #27ae60; }
   .cnt-btn.minus { background: rgba(192,57,43,0.15); border-color: #c0392b; color: #c0392b; }
 
   /* Status */
-  .status-bar {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px; color: var(--text-muted);
-    text-align: center; min-height: 16px;
-    margin-top: auto; padding-top: 10px;
-  }
+  .status-bar { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); text-align: center; min-height: 16px; margin-top: auto; padding-top: 10px; }
   .status-bar.ok   { color: #27ae60; }
   .status-bar.warn { color: #f39c12; }
 
@@ -235,7 +193,10 @@
 <body>
 <div class="app">
   <div class="header">
-    <span class="header-title">BJ Strategy</span>
+    <div class="header-left">
+      <span class="header-title">BJ Strategy</span>
+      <span class="cache-indicator" id="cacheIndicator">Cache: empty</span>
+    </div>
     <div class="header-btns">
       <button class="icon-btn" id="saveBtn" title="Save cache">💾</button>
       <button class="icon-btn" id="clearBtn" title="Clear cache">🗑️</button>
@@ -244,7 +205,6 @@
   </div>
 
   <div class="content">
-
     <div class="result-area">
       <div class="ev-line" id="evLine">—</div>
       <div class="best-label" id="bestLabel">No hand yet</div>
@@ -312,8 +272,12 @@ var dasEnabled = false;
 var stepCounter = 0;
 var inputPattern = /^[2-9TA](,[2-9TA]){1,}$/i;
 
-var evCache = {};
-var dealerCache = {};
+// Per-deck caches — one set per deck count so switching decks doesn't wipe everything
+var evCaches     = {1:{},2:{},3:{},4:{},5:{},6:{}};
+var dealerCaches = {1:{},2:{},3:{},4:{},5:{},6:{}};
+var evCache     = evCaches[1];
+var dealerCache = dealerCaches[1];
+
 var customDeck = null;
 var cachedDealerTable = null;
 var cardList = ["A","T","9","8","7","6","5","4","3","2"];
@@ -362,14 +326,32 @@ var pairSplitting = {
   "2,2":{2:"Y/N",3:"Y/N",4:"Y",5:"Y",6:"Y",7:"Y",8:"N",9:"N",T:"N",A:"N"}
 };
 
-// ── localStorage cache ─────────────────────────────────────────────────────
+// ── Per-deck localStorage cache ────────────────────────────────────────────
+function cacheKey(n) { return "bj_ev_" + n; }
+function dealerCacheKey(n) { return "bj_dealer_" + n; }
+
+function switchToDecks(n) {
+  // Point evCache and dealerCache at the right per-deck object
+  evCache     = evCaches[n];
+  dealerCache = dealerCaches[n];
+  cachedDealerTable = null;
+  updateCacheIndicator();
+}
+
 function saveCache() {
   try {
-    localStorage.setItem("bj_ev", JSON.stringify(evCache));
-    localStorage.setItem("bj_dealer", JSON.stringify(dealerCache));
-    var n = Object.keys(evCache).length + Object.keys(dealerCache).length;
-    showToast("Saved " + n + " entries");
+    // Save all deck caches, not just the current one
+    var total = 0;
+    for (var n = 1; n <= 6; n++) {
+      var evKeys = Object.keys(evCaches[n]);
+      var dlKeys = Object.keys(dealerCaches[n]);
+      if (evKeys.length > 0) localStorage.setItem(cacheKey(n), JSON.stringify(evCaches[n]));
+      if (dlKeys.length > 0) localStorage.setItem(dealerCacheKey(n), JSON.stringify(dealerCaches[n]));
+      total += evKeys.length + dlKeys.length;
+    }
+    showToast("Saved " + total + " entries across all deck counts");
     setStatus("Cache saved", "ok");
+    updateCacheIndicator();
   } catch(e) {
     showToast("Save failed — storage may be full");
     setStatus("Save failed", "warn");
@@ -378,20 +360,56 @@ function saveCache() {
 
 function loadCache() {
   try {
-    var ev = localStorage.getItem("bj_ev");
-    var dl = localStorage.getItem("bj_dealer");
-    if (ev) evCache = JSON.parse(ev);
-    if (dl) dealerCache = JSON.parse(dl);
-    var n = Object.keys(evCache).length + Object.keys(dealerCache).length;
-    if (n > 0) setStatus("Loaded " + n + " cached entries", "ok");
-  } catch(e) { evCache = {}; dealerCache = {}; }
+    var total = 0;
+    for (var n = 1; n <= 6; n++) {
+      var ev = localStorage.getItem(cacheKey(n));
+      var dl = localStorage.getItem(dealerCacheKey(n));
+      if (ev) { evCaches[n] = JSON.parse(ev); total += Object.keys(evCaches[n]).length; }
+      if (dl) { dealerCaches[n] = JSON.parse(dl); total += Object.keys(dealerCaches[n]).length; }
+    }
+    // Point current cache refs at the loaded data
+    evCache     = evCaches[numDecks];
+    dealerCache = dealerCaches[numDecks];
+    if (total > 0) setStatus("Loaded " + total + " cached entries", "ok");
+    updateCacheIndicator();
+  } catch(e) {
+    evCaches = {1:{},2:{},3:{},4:{},5:{},6:{}};
+    dealerCaches = {1:{},2:{},3:{},4:{},5:{},6:{}};
+  }
 }
 
 function clearAllCaches() {
-  evCache = {}; dealerCache = {}; cachedDealerTable = null;
-  try { localStorage.removeItem("bj_ev"); localStorage.removeItem("bj_dealer"); } catch(e){}
-  showToast("Cache cleared");
+  evCaches = {1:{},2:{},3:{},4:{},5:{},6:{}};
+  dealerCaches = {1:{},2:{},3:{},4:{},5:{},6:{}};
+  evCache = evCaches[numDecks];
+  dealerCache = dealerCaches[numDecks];
+  cachedDealerTable = null;
+  try {
+    for (var n = 1; n <= 6; n++) {
+      localStorage.removeItem(cacheKey(n));
+      localStorage.removeItem(dealerCacheKey(n));
+    }
+  } catch(e) {}
+  showToast("All caches cleared");
   setStatus("Cache cleared", "ok");
+  updateCacheIndicator();
+}
+
+function updateCacheIndicator() {
+  var el = document.getElementById("cacheIndicator");
+  var currentEV = Object.keys(evCaches[numDecks]).length;
+  var currentDl = Object.keys(dealerCaches[numDecks]).length;
+  var total = 0;
+  for (var n = 1; n <= 6; n++) {
+    total += Object.keys(evCaches[n]).length + Object.keys(dealerCaches[n]).length;
+  }
+  if (total === 0) {
+    el.textContent = "Cache: empty";
+    el.className = "cache-indicator";
+  } else {
+    el.textContent = numDecks + "-deck: " + (currentEV + currentDl) + " entries  |  total: " + total;
+    el.className = "cache-indicator warm";
+  }
 }
 
 // ── Deck helpers ───────────────────────────────────────────────────────────
@@ -608,9 +626,9 @@ function computeBestMove(){
   if(cachedDealerTable===null) cachedDealerTable=precomputeDealerTable(deck);
   var dt=cachedDealerTable;
   var he=evaluateHandList(playerHand);
-  var total=he.value, soft=he.soft;
+  var total=he.value,soft=he.soft;
 
-  var bjP=probBJ(deck,dealerCard), noBj=1-bjP;
+  var bjP=probBJ(deck,dealerCard),noBj=1-bjP;
   var stand=standEV(total,dealerCard,dt);
   var hit=hitEV(total,soft,dealerCard,deck,dt);
   var dbl=(playerHand.length===2&&doublingEnabled)?doubleEV(total,soft,dealerCard,deck,dt):-999;
@@ -627,18 +645,15 @@ function computeBestMove(){
   var move=best===stand?"Stand":best===hit?"Hit":best===dbl?"Double":"Split";
   var basicMove=interpretCode(getBasicCode());
 
-  // EV line
   var evStr="S:"+stand.toFixed(3)+"  H:"+hit.toFixed(3)+
     (dbl>-900?"  D:"+dbl.toFixed(3):"")+
     (spl>-900?"  Sp:"+spl.toFixed(3):"");
   document.getElementById("evLine").textContent=evStr;
 
-  // Best move label with color
   var lbl=document.getElementById("bestLabel");
   lbl.className="best-label "+move.toLowerCase();
   lbl.textContent="Best EV: "+move;
 
-  // Basic strategy
   var bl=document.getElementById("basicLabel");
   if(move!==basicMove){
     bl.innerHTML='Basic Strategy: <span class="disagree">'+basicMove+'</span>'
@@ -648,6 +663,7 @@ function computeBestMove(){
   }
 
   setStatus("Steps: "+stepCounter,"");
+  updateCacheIndicator();
 }
 
 // ── True count ─────────────────────────────────────────────────────────────
@@ -705,8 +721,7 @@ function setStatus(msg,type){
   el.className="status-bar"+(type?" "+type:"");
 }
 
-// ── Events ─────────────────────────────────────────────────────────────────
-document.getElementById("calcBtn").addEventListener("click",function(){
+function runCalculation(){
   var input=document.getElementById("handInput").value.trim().toUpperCase();
   var el=document.getElementById("handInput");
   if(!inputPattern.test(input)){
@@ -722,6 +737,14 @@ document.getElementById("calcBtn").addEventListener("click",function(){
   document.getElementById("evLine").textContent="";
   document.getElementById("basicLabel").textContent="";
   setTimeout(function(){computeBestMove();},30);
+}
+
+// ── Events ─────────────────────────────────────────────────────────────────
+document.getElementById("calcBtn").addEventListener("click", runCalculation);
+
+// Enter key triggers calculation
+document.getElementById("handInput").addEventListener("keydown", function(e){
+  if(e.key==="Enter"||e.keyCode===13) runCalculation();
 });
 
 document.getElementById("handInput").addEventListener("input",function(){
@@ -732,23 +755,36 @@ document.getElementById("handInput").addEventListener("input",function(){
 document.getElementById("dealerSel").addEventListener("change",function(){
   dealerCard=this.value; cachedDealerTable=null;
 });
+
 document.getElementById("decksSel").addEventListener("change",function(){
-  numDecks=Number(this.value); customDeck=null; clearAllCaches();
+  numDecks=Number(this.value);
+  customDeck=null;
+  // Switch cache to the new deck count — no data lost from other deck counts
+  switchToDecks(numDecks);
   if(document.getElementById("deckEditor").classList.contains("open")){
     customDeck=createDeck(); updateDeckUI();
   }
 });
+
 document.getElementById("dblSel").addEventListener("change",function(){
-  doublingEnabled=this.value==="1"; clearAllCaches();
+  doublingEnabled=this.value==="1";
+  // Clear only current deck's EV cache since doubling affects EV
+  evCaches[numDecks]={};
+  evCache=evCaches[numDecks];
+  cachedDealerTable=null;
+  updateCacheIndicator();
 });
+
 document.getElementById("dasSel").addEventListener("change",function(){
   dasEnabled=this.value==="1";
 });
 
-document.getElementById("saveBtn").addEventListener("click",saveCache);
+document.getElementById("saveBtn").addEventListener("click", saveCache);
+
 document.getElementById("clearBtn").addEventListener("click",function(){
-  if(confirm("Clear all cached data?")) clearAllCaches();
+  if(confirm("Clear all cached data for all deck counts?")) clearAllCaches();
 });
+
 document.getElementById("deckBtn").addEventListener("click",function(){
   var ed=document.getElementById("deckEditor");
   var btn=document.getElementById("deckBtn");
