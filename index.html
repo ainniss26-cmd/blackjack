@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="BJ Strategy">
+<meta name="apple-mobile-web-app-title" content="Blackjack Strategy">
 <title>Blackjack Strategy</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -55,7 +55,7 @@
     margin-bottom: 14px;
   }
   .header-left { display: flex; flex-direction: column; gap: 2px; }
-  .header-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 3px; color: var(--gold); line-height: 1; }
+  .header-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: var(--gold); line-height: 1; }
   .cache-indicator { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.3px; }
   .cache-indicator.warm { color: #27ae60; }
   .header-btns { display: flex; gap: 8px; }
@@ -194,7 +194,7 @@
 <div class="app">
   <div class="header">
     <div class="header-left">
-      <span class="header-title">BJ Strategy</span>
+      <span class="header-title">Blackjack Strategy</span>
       <span class="cache-indicator" id="cacheIndicator">Cache: empty</span>
     </div>
     <div class="header-btns">
@@ -272,7 +272,6 @@ var dasEnabled = false;
 var stepCounter = 0;
 var inputPattern = /^[2-9TA](,[2-9TA]){1,}$/i;
 
-// Per-deck caches — one set per deck count so switching decks doesn't wipe everything
 var evCaches     = {1:{},2:{},3:{},4:{},5:{},6:{}};
 var dealerCaches = {1:{},2:{},3:{},4:{},5:{},6:{}};
 var evCache     = evCaches[1];
@@ -327,11 +326,10 @@ var pairSplitting = {
 };
 
 // ── Per-deck localStorage cache ────────────────────────────────────────────
-function cacheKey(n) { return "bj_ev_" + n; }
+function cacheKey(n)       { return "bj_ev_" + n; }
 function dealerCacheKey(n) { return "bj_dealer_" + n; }
 
 function switchToDecks(n) {
-  // Point evCache and dealerCache at the right per-deck object
   evCache     = evCaches[n];
   dealerCache = dealerCaches[n];
   cachedDealerTable = null;
@@ -340,7 +338,6 @@ function switchToDecks(n) {
 
 function saveCache() {
   try {
-    // Save all deck caches, not just the current one
     var total = 0;
     for (var n = 1; n <= 6; n++) {
       var evKeys = Object.keys(evCaches[n]);
@@ -367,7 +364,6 @@ function loadCache() {
       if (ev) { evCaches[n] = JSON.parse(ev); total += Object.keys(evCaches[n]).length; }
       if (dl) { dealerCaches[n] = JSON.parse(dl); total += Object.keys(dealerCaches[n]).length; }
     }
-    // Point current cache refs at the loaded data
     evCache     = evCaches[numDecks];
     dealerCache = dealerCaches[numDecks];
     if (total > 0) setStatus("Loaded " + total + " cached entries", "ok");
@@ -397,17 +393,16 @@ function clearAllCaches() {
 
 function updateCacheIndicator() {
   var el = document.getElementById("cacheIndicator");
-  var currentEV = Object.keys(evCaches[numDecks]).length;
-  var currentDl = Object.keys(dealerCaches[numDecks]).length;
-  var total = 0;
+  var currentTotal = Object.keys(evCaches[numDecks]).length + Object.keys(dealerCaches[numDecks]).length;
+  var grandTotal = 0;
   for (var n = 1; n <= 6; n++) {
-    total += Object.keys(evCaches[n]).length + Object.keys(dealerCaches[n]).length;
+    grandTotal += Object.keys(evCaches[n]).length + Object.keys(dealerCaches[n]).length;
   }
-  if (total === 0) {
+  if (grandTotal === 0) {
     el.textContent = "Cache: empty";
     el.className = "cache-indicator";
   } else {
-    el.textContent = numDecks + "-deck: " + (currentEV + currentDl) + " entries  |  total: " + total;
+    el.textContent = numDecks + "-deck: " + currentTotal + " entries  |  total: " + grandTotal;
     el.className = "cache-indicator warm";
   }
 }
@@ -666,9 +661,11 @@ function computeBestMove(){
   updateCacheIndicator();
 }
 
-// ── True count ─────────────────────────────────────────────────────────────
+// ── True count (FIXED: high cards remaining = positive count) ──────────────
 function computeTrueCount(deck){
-  var rc=(deck["2"]+deck["3"]+deck["4"]+deck["5"]+deck["6"])-(deck["T"]+deck["A"]);
+  var rc = 0;
+  rc += (deck["2"]+deck["3"]+deck["4"]+deck["5"]+deck["6"]) * -1;
+  rc += (deck["T"]+deck["A"]) * 1;
   var rem=totalCards(deck)/52;
   if(rem===0)return{running:0,true:0};
   return{running:rc,true:rc/rem};
@@ -720,7 +717,6 @@ function setStatus(msg,type){
   el.textContent=msg;
   el.className="status-bar"+(type?" "+type:"");
 }
-
 function runCalculation(){
   var input=document.getElementById("handInput").value.trim().toUpperCase();
   var el=document.getElementById("handInput");
@@ -742,49 +738,38 @@ function runCalculation(){
 // ── Events ─────────────────────────────────────────────────────────────────
 document.getElementById("calcBtn").addEventListener("click", runCalculation);
 
-// Enter key triggers calculation
-document.getElementById("handInput").addEventListener("keydown", function(e){
+document.getElementById("handInput").addEventListener("keydown",function(e){
   if(e.key==="Enter"||e.keyCode===13) runCalculation();
 });
-
 document.getElementById("handInput").addEventListener("input",function(){
   this.classList.remove("error");
   this.value=this.value.toUpperCase();
 });
-
 document.getElementById("dealerSel").addEventListener("change",function(){
   dealerCard=this.value; cachedDealerTable=null;
 });
-
 document.getElementById("decksSel").addEventListener("change",function(){
   numDecks=Number(this.value);
   customDeck=null;
-  // Switch cache to the new deck count — no data lost from other deck counts
   switchToDecks(numDecks);
   if(document.getElementById("deckEditor").classList.contains("open")){
     customDeck=createDeck(); updateDeckUI();
   }
 });
-
 document.getElementById("dblSel").addEventListener("change",function(){
   doublingEnabled=this.value==="1";
-  // Clear only current deck's EV cache since doubling affects EV
   evCaches[numDecks]={};
   evCache=evCaches[numDecks];
   cachedDealerTable=null;
   updateCacheIndicator();
 });
-
 document.getElementById("dasSel").addEventListener("change",function(){
   dasEnabled=this.value==="1";
 });
-
 document.getElementById("saveBtn").addEventListener("click", saveCache);
-
 document.getElementById("clearBtn").addEventListener("click",function(){
   if(confirm("Clear all cached data for all deck counts?")) clearAllCaches();
 });
-
 document.getElementById("deckBtn").addEventListener("click",function(){
   var ed=document.getElementById("deckEditor");
   var btn=document.getElementById("deckBtn");
